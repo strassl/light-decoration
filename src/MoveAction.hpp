@@ -18,7 +18,7 @@ public:
   void operator()()
   {
     fill_solid(_leds, NumLeds, CRGB::Black);
-    _leds[_position] = CRGB::White;
+    _leds[_position] = CHSV(0, 0, 255);
     FastLED.show();
     _position = (_position + 1) % NumLeds;
   }

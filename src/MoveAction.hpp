@@ -2,13 +2,13 @@
 
 #include "FastLED.h"
 
-template <int NumLeds>
+template <uint8_t NumLeds>
 class MoveAction
 {
 private:
   CRGB (&_leds)
   [NumLeds];
-  int _position;
+  uint8_t _position;
 
 public:
   MoveAction(CRGB (&leds)[NumLeds]) : _leds(leds), _position(0)

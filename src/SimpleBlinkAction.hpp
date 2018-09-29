@@ -2,11 +2,11 @@
 class SimpleBlinkAction
 {
 private:
-  int _pin;
+  uint8_t _pin;
   boolean _on;
 
 public:
-  SimpleBlinkAction(int pin)
+  SimpleBlinkAction(uint8_t pin)
   {
     this->_pin = pin;
     this->_on = true;

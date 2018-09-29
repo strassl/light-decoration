@@ -5,10 +5,10 @@
 #include "RainbowMoveAction.hpp"
 #include "RainbowCurtainAction.hpp"
 
-constexpr int Rows = 2;
-constexpr int Columns = 12;
-constexpr int NumLeds = Rows * Columns;
-constexpr int DataPin = 2;
+constexpr uint8_t Rows = 2;
+constexpr uint8_t Columns = 12;
+constexpr uint8_t NumLeds = Rows * Columns;
+constexpr uint8_t DataPin = 2;
 
 CRGB leds[NumLeds];
 

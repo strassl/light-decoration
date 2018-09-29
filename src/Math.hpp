@@ -5,6 +5,13 @@ inline Num pos_mod(Num i, Num n)
   return (i % n + n) % n;
 }
 
+// (x - y) % n but also works correctly for unsigned numbers when underflowing
+template <typename Num>
+inline Num wrapping_sub(Num x, Num y, Num n)
+{
+  return (x + (n - y % n)) % n;
+}
+
 /* Calculates the index into a "snake" ordered array from the actual coordinates
  * i.e.
  * 1  2  3  4

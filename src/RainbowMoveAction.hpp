@@ -1,12 +1,7 @@
 #pragma once
 
 #include "FastLED.h"
-
-template <typename Num>
-inline Num pos_mod(Num i, Num n)
-{
-  return (i % n + n) % n;
-}
+#include "Math.hpp"
 
 template <int NumLeds>
 class RainbowMoveAction

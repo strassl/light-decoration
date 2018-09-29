@@ -7,12 +7,12 @@ template <uint8_t Rows, uint8_t Columns>
 class RainbowCurtainAction
 {
 private:
+  static constexpr uint8_t NumLeds = Rows * Columns;
+
   CRGB (&_leds)
-  [Rows * Columns];
+  [NumLeds];
   uint8_t _position;
   uint8_t _hue;
-
-  static constexpr uint8_t NumLeds = Rows * Columns;
 
 public:
   RainbowCurtainAction(CRGB (&leds)[NumLeds]) : _leds(leds), _position(0), _hue(0)

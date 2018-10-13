@@ -3,16 +3,6 @@
 #include "FastLED.h"
 #include "Math.hpp"
 
-static constexpr uint8_t SineLength = 37;
-static constexpr uint8_t Sine[SineLength] =
-    {128, 150, 171, 191, 209, 225,
-     238, 247, 253, 255, 253, 247,
-     238, 225, 209, 191, 171, 150,
-     128, 105, 84, 64, 46, 30,
-     17, 8, 2, 0, 2, 8,
-     17, 30, 46, 64, 84, 105,
-     127};
-
 template <uint8_t Rows, uint8_t Columns>
 class SineCurtainAction
 {
@@ -36,13 +26,46 @@ public:
     {
       for (uint8_t column = 0; column < Columns; column++)
       {
+        /*
         int sineIdx = row + column + _time;
-        auto sineA = Sine[sineIdx % SineLength];
-        auto sineB = Sine[(sineIdx + 4) % SineLength];
-        auto sineC = Sine[(sineIdx + 8) % SineLength];
+        auto sineA = sine(sineIdx + 0);
+        auto sineB = sine(sineIdx + 4);
+        auto sineC = sine(sineIdx + 8);
 
         auto index = coordinates_to_index<uint8_t, Rows, Columns>(row, column);
-        _leds[index] = CHSV(sineA, sineB, sineC);
+        _leds[index] = CHSV(sineA, sineB, 255);
+        */
+        /*
+        auto sineA = sine(row + 0) + sine(column + 0) + sine(_time + 0);
+        auto sineB = sine(row + 4) + sine(column + 4) + sine(_time + 4);
+        auto sineC = sine(row + 8) + sine(column + 8) + sine(_time + 8);
+
+        auto index = coordinates_to_index<uint8_t, Rows, Columns>(row, column);
+        _leds[index] = CHSV(sineA, sineB, 255);
+        */
+        /*
+        int sineIdx = row + column + _time;
+        auto sineA = sine(sineIdx + 0);
+        auto sineB = sine(sineIdx + 4);
+        auto sineC = sine(sineIdx + 8);
+
+        auto index = coordinates_to_index<uint8_t, Rows, Columns>(row, column);
+        _leds[index] = CRGB(sineA, sineB, sineC);
+        */
+        // Right bottom to left top
+        auto sineA = sine(row + _time) + sine(column + _time);
+        // Right top to left bottom
+        auto sineB = sine(row + _time) + sine((Columns - column) + _time);
+        // Left bottom to right top
+        auto sineC = sine((Rows - row) * 3 + _time) + sine(column * 3 + _time);
+        // Left top to right bottom
+        auto sineD = sine((Rows - row) * 3 + _time) + sine((Columns - column) * 3 + _time);
+
+        auto index = coordinates_to_index<uint8_t, Rows, Columns>(row, column);
+        auto h = (sineA + sineC) % 255;
+        auto s = sine(_time * 2) / 2 + 128;
+        auto v = sine(row + column + _time);
+        _leds[index] = CHSV(h, s, v);
       }
     }
 

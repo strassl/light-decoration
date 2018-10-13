@@ -26,3 +26,19 @@ inline Num coordinates_to_index(Num row, Num column)
 
   return rowOffset + columnOffset;
 }
+
+static constexpr uint8_t SineArrayLength = 37;
+static constexpr uint8_t SineArray[SineArrayLength] =
+    {128, 150, 171, 191, 209, 225,
+     238, 247, 253, 255, 253, 247,
+     238, 225, 209, 191, 171, 150,
+     128, 105, 84, 64, 46, 30,
+     17, 8, 2, 0, 2, 8,
+     17, 30, 46, 64, 84, 105,
+     127};
+
+template <typename Num>
+inline uint8_t sine(Num x)
+{
+  return SineArray[x % SineArrayLength];
+}

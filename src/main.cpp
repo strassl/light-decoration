@@ -5,6 +5,7 @@
 #include "RainbowMoveAction.hpp"
 #include "RainbowCurtainAction.hpp"
 #include "SineCurtainAction.hpp"
+#include "ColorFadeAction.hpp"
 
 constexpr uint8_t Rows = 12;
 constexpr uint8_t Columns = 12;
@@ -18,6 +19,7 @@ static auto pixelMover = make_delayed_updater(66, MoveAction<NumLeds>(leds));
 static auto rainbowPixelMover = make_delayed_updater(66, RainbowMoveAction<NumLeds>(leds));
 static auto rainbowCurtainEffect = make_delayed_updater(66, RainbowCurtainAction<Rows, Columns>(leds));
 static auto sineCurtainEffect = make_delayed_updater(66, SineCurtainAction<Rows, Columns>(leds));
+static auto colorFadeEffect = make_delayed_updater(66, ColorFadeAction<NumLeds>(leds));
 
 void setup()
 {
@@ -29,5 +31,5 @@ void loop()
   unsigned long currentMillis = millis();
 
   ledBlinker.update(currentMillis);
-  sineCurtainEffect.update(currentMillis);
+  colorFadeEffect.update(currentMillis);
 }
